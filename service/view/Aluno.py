@@ -4,19 +4,19 @@ from service import service
 from service.controller.Aluno import AlunoController
 
 
-
 @service.route('/alunos', methods=['GET', 'POST', 'DELETE'])
 def alunos():
-    '''Este *endopoint* permite que os usuários do serviço obtenham todos os alunos cadastrados no sistema.
+    '''Este endopoint permite que os usuários do serviço obtenham todos os alunos cadastrados no sistema.
     - limite [inteiro, default=25]: Um valor inteiro e positivo indicando a quantidade de alunos a serem retornados.
     - pagina [inteiro, default=1]:  Um valor inteiro e positivo (começando em 1) indicando a página a ser retornada, permitindo assim a navegação sobre diversas páginas de alunos.
     - nome [string]:  Um texto com nome do aluno a ser encontrado na base dados.
     200 (sucesso): Uma lista de alunos que atende aos parâmetros fornecidos.
     400 (parâmetros inválidos): Uma mensagem informando o erro.'''
     if request.method == 'GET':
-        page = request.args.get('page', default=1, type=int)
-        return AlunoController().get_all(page)
-    '''Este *endopoint* permite que os usuários do serviço cadastrem novos alunos no sistema.
+        limite = request.args['limite']
+        pagina = request.args['pagina']
+        return AlunoController().get_all(limite, pagina)
+    '''Este endopoint permite que os usuários do serviço cadastrem novos alunos no sistema.
     Ao cadastrar um novo usuário o sistema atribui um número de identificação único (id), 
     a data no qual o registro foi inserido (registrado_em) e, por fim, a situação do aluno (situacao, podendo ser "ativo" ou "inativo").
     - rga (obrigatório, string): Número de matrícula do aluno no formato NNNN.NNNN.NNN-N
@@ -25,14 +25,15 @@ def alunos():
     - 201 (sucesso): Retorna um objeto JSON contendo informações de cadastro do usuário. Deve ser retornado também os dados adicionados pelo servidor (id, registrado_em e situacao).
     - 400 (parâmetros inválidos): Uma mensagem informando o erro.'''
     if request.method == 'POST':
-        req_data = request.get_json()
-        return AlunoController().insert(req_data)
+        rga = request.form['rga']
+        nome = request.form['nome']
+        curso = request.form['curso']
+        return AlunoController().insert(rga, nome, curso)
     else:
         return "405 (método não permitido)"
 
 
-
-@service.route('/alunos/<id>', methods=['GET', 'POST', 'DELETE'])
+@service.route('/alunos/<id>', methods=['GET', 'PUT', 'DELETE'])
 def aluno(id):
     '''Este endopoint permite que os usuários do serviço obtenham todos os alunos cadastrados no sistema.
     200 (sucesso): Os dados do usuário
@@ -43,13 +44,15 @@ def aluno(id):
     200 (sucesso): Retorna os dados atualizados do aluno
     404 (não encontrado): Uma mensagem informando que o usuário não foi encontrado.'''
     if request.method == 'PUT':
-        req_data = request.get_json()
-        return AlunoController().edit_by_id(id, req_data)
+        rga = request.form['rga']
+        nome = request.form['nome']
+        curso = request.form['curso']
+        return AlunoController().edit_by_id(id, rga, nome, curso)
     '''Este endopoint permite que os usuários do serviço removam um usuário cadastrado no sistema.
      200 (sucesso): Retorna os dados do aluno que foi removido
      404 (não encontrado): Uma mensagem informando que o usuário não foi encontrado.'''
     if request.method == 'DELETE':
-        return AlunoController.delete_by_id(id)
+        return AlunoController().delete_by_id(id)
     else:
         return "405 (método não permitido)"
 
