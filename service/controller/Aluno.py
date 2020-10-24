@@ -1,17 +1,20 @@
 from service.model.Aluno import AlunoModel
 
 
-class AlunoController:
+class AlunoController():
     def __int__(self):
-        pass
+        print("Instanciou AlunoController")
 
     '''aplica em massa'''
 
     def get_all(self, limite, pagina):
         return AlunoModel().get_all(limite, pagina)
 
-    def insert(self, rga, nome, curso):
-        return AlunoModel().insert(rga, nome, curso)
+    def insert(self, rga, nome, curso, situacao):
+        print('chegou insert')
+        aluno = AlunoModel()
+        print(aluno.kaio)
+        return AlunoModel().insert(rga, nome, curso, situacao)
 
     '''aplica unitariamente'''
 

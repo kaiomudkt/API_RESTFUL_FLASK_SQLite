@@ -4,7 +4,7 @@ from service import service
 from service.controller.Aluno import AlunoController
 
 
-@service.route('/alunos', methods=['GET', 'POST', 'DELETE'])
+@service.route('/alunos', methods=['GET', 'POST', 'DELETE' 'PUT'])
 def alunos():
     '''Este endopoint permite que os usuários do serviço obtenham todos os alunos cadastrados no sistema.
     - limite [inteiro, default=25]: Um valor inteiro e positivo indicando a quantidade de alunos a serem retornados.
@@ -28,12 +28,14 @@ def alunos():
         rga = request.form['rga']
         nome = request.form['nome']
         curso = request.form['curso']
-        return AlunoController().insert(rga, nome, curso)
+        situacao = request.form['situacao']
+        print('chegou no POST viewwwww')
+        return AlunoController().insert(rga, nome, curso, situacao)
     else:
         return "405 (método não permitido)"
 
 
-@service.route('/alunos/<id>', methods=['GET', 'PUT', 'DELETE'])
+@service.route('/alunos/<id>', methods=['GET', 'PUT', 'DELETE', 'POST'])
 def aluno(id):
     '''Este endopoint permite que os usuários do serviço obtenham todos os alunos cadastrados no sistema.
     200 (sucesso): Os dados do usuário

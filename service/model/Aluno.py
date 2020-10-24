@@ -1,30 +1,40 @@
+import sqlite3
+
 from service.connectionDB.conndb import Conndb
 
 
-'''https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/'''
-class AlunoModel:
-    def __int__(self):
+class AlunoModel():
+
+    def __init__(self):
+        print("instanciou AlunoModel")
         self.conndb = Conndb()
+        self.conn = self.conndb.conn
+        self.cur = self.conn.cur
+        self.kaio = 'Kaio Lino'
 
     '''aplica em massa'''
+
     def get_all(self, limite, pagina):
         return "lista de todos os alunos da pagina " + pagina + " em " + limite
 
-    def insert(self, rga, nome, curso):
+    def insert(self, rga, nome, curso, situacao):
         try:
-            #db = self.conndb.get_db()
-            resp = self.conndb.c.execute("INSERT INTO aluno (nome,rga,curso) VALUES(?, ?, ?)", (nome, rga, curso))
-            self.conndb.conn.commit()
+            # db = self.conndb.get_db()
+            conn = sqlite3.connect('database.db')
+            resp = conn.cursor().execute("INSERT INTO aluno (nome, rga, curso, situacao) VALUES(?, ?, ?, ?)",
+                                         (nome, rga, curso, situacao))
+            conn.commit()
             msg = "Record successfully added"
         except:
-            #con.rollback()
+            # conn.rollback()
             msg = "error in insert operation"
         finally:
-            self.conndb.conn.close()
+            conn.cursor().close()
             print(msg)
-            return resp
+            return msg
 
     '''aplica unitariamente'''
+
     def get_by_id(self, id):
         return "aludo deste id: " + id
 
