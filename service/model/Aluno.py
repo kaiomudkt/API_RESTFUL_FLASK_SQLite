@@ -1,11 +1,14 @@
-from service.connectionDB.ConnectionDB import ConnectionDB
 import json
 from datetime import date
 
+from service.connectionDB.ConnectionDB import ConnectionDB
+
+
 class AlunoModel():
+
     def __init__(self):
-        #self.connectionDB = db
         self.connectionDB = ConnectionDB()
+        # self.connectionDB = ConnectionDB()
 
     '''aplica em massa'''
 
@@ -13,17 +16,18 @@ class AlunoModel():
         self.connectionDB.cursor.execute("SELECT * FROM aluno")
         resp = self.connectionDB.cursor.fetchall()
         self.connectionDB.conn.close()
-        print(resp)
+        # print(resp)
         return json.dumps(resp)
 
     def insert(self, rga, nome, curso):
         registrado_em = date.today()
-        self.connectionDB.cursor.execute("INSERT INTO aluno (nome, rga, curso, situacao, registrado_em) VALUES(?, ?, ?, ?, ?)",
-                                         (nome, rga, curso, 'inativo', registrado_em))
+        self.connectionDB.cursor.execute(
+            "INSERT INTO aluno (nome, rga, curso, situacao, registrado_em) VALUES(?, ?, ?, ?, ?)",
+            (nome, rga, curso, 'inativo', registrado_em))
         self.connectionDB.cursor.execute("SELECT * FROM aluno")
         resp = self.connectionDB.cursor.fetchall()
         self.connectionDB.conn.close()
-        print(resp)
+        # print(resp)
         return json.dumps(resp)
 
     '''aplica unitariamente'''
