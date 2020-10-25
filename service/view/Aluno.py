@@ -28,6 +28,7 @@ def alunos():
         rga = request.form['rga']
         nome = request.form['nome']
         curso = request.form['curso']
+        #situacao = request.form['situacao']
         return AlunoController().insert(rga, nome, curso)
     else:
         return "405 (método não permitido)"
