@@ -4,6 +4,7 @@ from datetime import date
 
 class AlunoModel():
     def __init__(self):
+        #self.connectionDB = db
         self.connectionDB = ConnectionDB()
 
     '''aplica em massa'''

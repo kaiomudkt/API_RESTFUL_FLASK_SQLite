@@ -2,7 +2,8 @@ from flask import request
 
 from service import service
 from service.controller.Aluno import AlunoController
-
+from service.connectionDB.ConnectionDB import ConnectionDB
+db = ConnectionDB()
 
 @service.route('/alunos', methods=['GET', 'POST', 'DELETE'])
 def alunos():

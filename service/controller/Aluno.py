@@ -1,9 +1,10 @@
 from service.model.Aluno import AlunoModel
+from service.connectionDB.ConnectionDB import ConnectionDB
 
-
-class AlunoController:
+class AlunoController():
     def __int__(self):
         pass
+        #self.db = db
 
     '''aplica em massa'''
 
