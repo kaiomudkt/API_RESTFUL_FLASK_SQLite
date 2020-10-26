@@ -9,7 +9,6 @@ class AlunoModel():
     def get_all(self, limite, pagina):
         db.cursor.execute("SELECT * FROM aluno")
         resp = db.cursor.fetchall()
-        #db.conn.close()
         db.conn.commit()
         return json.dumps(resp)
 
@@ -20,17 +19,21 @@ class AlunoModel():
             (nome, rga, curso, 'inativo', registrado_em))
         db.cursor.execute("SELECT * FROM aluno")
         resp = db.cursor.fetchall()
-        #db.conn.close()
         db.conn.commit()
         return json.dumps(resp)
 
     '''aplica unitariamente'''
 
     def get_by_id(self, id):
-        return "aludo deste id: " + id
+        db.cursor.execute("SELECT * FROM aluno where id = ?", [id])
+        resp = db.cursor.fetchall()
+        db.conn.commit()
+        return json.dumps(resp)
 
     def edit_by_id(self, id, rga, nome, curso):
-        return "aplicou edição nos dados deste aluno do ID " + id + " rga" + rga + " nome " + nome + " curso " + curso
+        db.cursor.execute("UPDATE aluno set (nome = '{nome}', rga, curso)  where id = ")
+        aluno = db.cursor.execute("SELECT * FROM aluno where id = ? ", [id])
+        return aluno
 
     def delete_by_id(self, id):
         return "removendo alundo deste ID " + id
