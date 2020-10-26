@@ -1,12 +1,8 @@
-from service.connectionDB.ConnectionDB import ConnectionDB
+# from service.connectionDB.ConnectionDB import ConnectionDB
 from service.model.Aluno import AlunoModel
 
 
 class AlunoController():
-    def __int__(self):
-        #self.db = db
-        pass
-
     '''aplica em massa'''
 
     def get_all(self, limite, pagina):

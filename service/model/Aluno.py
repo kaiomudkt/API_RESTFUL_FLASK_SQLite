@@ -1,33 +1,25 @@
 import json
 from datetime import date
 
-from service.connectionDB.ConnectionDB import ConnectionDB
-
+from service import db
 
 class AlunoModel():
-
-    def __init__(self):
-        self.connectionDB = ConnectionDB()
-        # self.connectionDB = ConnectionDB()
-
     '''aplica em massa'''
 
     def get_all(self, limite, pagina):
-        self.connectionDB.cursor.execute("SELECT * FROM aluno")
-        resp = self.connectionDB.cursor.fetchall()
-        self.connectionDB.conn.close()
-        # print(resp)
+        db.cursor.execute("SELECT * FROM aluno")
+        resp = db.cursor.fetchall()
+        #db.conn.close()
         return json.dumps(resp)
 
     def insert(self, rga, nome, curso):
         registrado_em = date.today()
-        self.connectionDB.cursor.execute(
+        db.cursor.execute(
             "INSERT INTO aluno (nome, rga, curso, situacao, registrado_em) VALUES(?, ?, ?, ?, ?)",
             (nome, rga, curso, 'inativo', registrado_em))
-        self.connectionDB.cursor.execute("SELECT * FROM aluno")
-        resp = self.connectionDB.cursor.fetchall()
-        self.connectionDB.conn.close()
-        # print(resp)
+        db.cursor.execute("SELECT * FROM aluno")
+        resp = db.cursor.fetchall()
+        #db.conn.close()
         return json.dumps(resp)
 
     '''aplica unitariamente'''

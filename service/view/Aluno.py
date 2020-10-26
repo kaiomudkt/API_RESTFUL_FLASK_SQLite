@@ -1,4 +1,4 @@
-from flask import request, current_app
+from flask import request
 from flask_restful import Resource, Api
 
 from service import service
@@ -32,7 +32,7 @@ class Alunos(Resource):
         rga = request.form['rga']
         nome = request.form['nome']
         curso = request.form['curso']
-        #return {'POST usando class': 'deu certo' + rga + nome + curso}
+        # return {'POST usando class': 'deu certo' + rga + nome + curso}
         return AlunoController().insert(rga, nome, curso)
 
     def delete(self):
