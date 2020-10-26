@@ -10,6 +10,7 @@ class AlunoModel():
         db.cursor.execute("SELECT * FROM aluno")
         resp = db.cursor.fetchall()
         #db.conn.close()
+        db.conn.commit()
         return json.dumps(resp)
 
     def insert(self, rga, nome, curso):
@@ -20,6 +21,7 @@ class AlunoModel():
         db.cursor.execute("SELECT * FROM aluno")
         resp = db.cursor.fetchall()
         #db.conn.close()
+        db.conn.commit()
         return json.dumps(resp)
 
     '''aplica unitariamente'''
