@@ -41,10 +41,10 @@ api.add_resource(Alunos, '/alunos')
 
 class AlunosID(Resource):
 
-    def get(self, id):
+    def get(self, id: int):
         return AlunoController().get_by_id(id)
 
-    def put(self, id):
+    def put(self, id: int):
         rga = request.form['rga']
         nome = request.form['nome']
         curso = request.form['curso']
@@ -53,7 +53,7 @@ class AlunosID(Resource):
         else:
             return AlunoController().edit_by_id(id, rga, nome, curso)
 
-    def delete(self, id):
+    def delete(self, id: int):
         return AlunoController().delete_by_id(id)
 
     def options(self):
