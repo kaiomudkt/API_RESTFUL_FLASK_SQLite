@@ -16,8 +16,8 @@ class AlunoController():
     def get_by_id(self, id):
         return AlunoModel().get_by_id(id)
 
-    def edit_by_id(self, id, rga, nome, curso):
-        return AlunoModel().edit_by_id(id, rga, nome, curso)
+    def edit_by_id(self, id, rga, nome, curso, situacao):
+        return AlunoModel().edit_by_id(id, rga, nome, curso, situacao)
 
     def delete_by_id(self, id):
         return AlunoModel().delete_by_id(id)

@@ -11,7 +11,8 @@ class ConnectionDB():
 
     def exec_schema(self):
         self.cursor.execute('DROP TABLE IF EXISTS aluno')
-        self.cursor.execute('CREATE TABLE aluno (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, rga TEXT, curso TEXT, situacao TEXT, registrado_em TEXT)')
+        self.cursor.execute(
+            'CREATE TABLE aluno (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, rga TEXT, curso TEXT, situacao TEXT, registrado_em TEXT)')
         self.conn.commit()
         # with current_app.open_resource('schema.sql') as f:
         #     self.conn.executescript(f.read().decode('utf8'))
