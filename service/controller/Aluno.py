@@ -5,8 +5,8 @@ from service.model.Aluno import AlunoModel
 class AlunoController():
     '''aplica em massa'''
 
-    def get_all(self, limite: int, pagina: int):
-        return AlunoModel().get_all(limite, pagina)
+    def get_all(self, limite: int, pagina: int, nome=None):
+        return AlunoModel().get_all(limite, pagina, nome)
 
     def insert(self, rga: str, nome: str, curso: str):
         return AlunoModel().insert(rga, nome, curso)

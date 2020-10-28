@@ -12,8 +12,9 @@ class Alunos(Resource):
     def get(self):
         limite = request.args['limite']
         pagina = request.args['pagina']
-        if request.form['situacao']:
-            return AlunoController().get_all(limite, pagina, request.form['situacao'])
+        nome = request.args.get("nome")
+        if nome:
+            return AlunoController().get_all(limite, pagina, nome)
         else:
             return AlunoController().get_all(limite, pagina)
 
