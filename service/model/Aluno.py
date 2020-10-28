@@ -53,8 +53,8 @@ class AlunoModel():
 
     def edit_by_id(self, id: int, rga: str, nome: str, curso: str, situacao: str):
         if self.exist(id):
-            query = """UPDATE aluno SET (nome = ?, rga = ?, curso = ?, sutuacao = ?)  WHERE id = ? """
-            db.cursor.execute(query, [nome, rga, curso, situacao, id,])
+            query = f"""UPDATE aluno SET nome = '{nome}', rga = '{rga}', curso = '{curso}', situacao = '{situacao}'  WHERE id = '{id}' """
+            db.cursor.execute(query)
             return self.get_by_id(id)
         else:
             return {"404": "Usuário com ID " + id + " não foi encontrado"}, 404
