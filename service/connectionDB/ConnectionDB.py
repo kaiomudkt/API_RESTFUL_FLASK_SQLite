@@ -2,8 +2,10 @@ import sqlite3
 
 
 class ConnectionDB():
+
     def __init__(self, path='storage.db'):
         self.conn = sqlite3.connect(path, check_same_thread=False)
+        self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
         self.exec_schema()
 

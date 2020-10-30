@@ -1,6 +1,6 @@
 # from service.connectionDB.ConnectionDB import ConnectionDB
 from service.model.Aluno import AlunoModel
-
+import re
 
 class AlunoController():
     '''aplica em massa'''
@@ -9,7 +9,11 @@ class AlunoController():
         return AlunoModel().get_all(limite, pagina, nome)
 
     def insert(self, rga: str, nome: str, curso: str):
-        return AlunoModel().insert(rga, nome, curso)
+        match = re.findall('\d{4}.\d{4}.\d{3}.\d{1}', rga)
+        if not match:
+            return {'400': 'RGA inválido'}, 400
+        else:
+            return AlunoModel().insert(rga, nome, curso)
 
     '''aplica unitariamente'''
 

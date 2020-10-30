@@ -1,6 +1,4 @@
-import json
 from datetime import date
-
 from service import db
 
 
@@ -22,9 +20,12 @@ class AlunoModel():
             pagina = (int(pagina) - 1) * int(limite)
             query = """SELECT * FROM aluno ORDER BY nome ASC LIMIT ? OFFSET ?"""
             db.cursor.execute(query, [limite, pagina])
-        resp = db.cursor.fetchall()
-        db.conn.commit()
-        return json.dumps(resp)
+
+        response = []
+        for r in db.cursor.fetchall():
+            response.insert(0, dict(r))
+
+        return response
 
     def exist_nome(self, nome):
         query = """SELECT * FROM aluno where nome = ?"""
@@ -37,7 +38,7 @@ class AlunoModel():
         db.cursor.execute(query, (nome, rga, curso, 'ativo', registrado_em))
         id = db.cursor.lastrowid
         db.conn.commit()
-        return json.dumps(self.get_by_id(id))
+        return self.get_by_id(id), 201
 
     '''aplica unitariamente'''
 
@@ -45,9 +46,11 @@ class AlunoModel():
         if self.exist(id):
             query = """SELECT * FROM aluno where id = ?"""
             db.cursor.execute(query, [id])
-            resp = db.cursor.fetchall()
+            response = []
+            for r in db.cursor.fetchall():
+                response.insert(0, dict(r))
             db.conn.commit()
-            return json.dumps(resp)
+            return response
         else:
             return {"404": "Usuário com ID " + id + " não foi encontrado"}, 404
 
